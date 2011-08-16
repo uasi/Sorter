@@ -21,9 +21,28 @@ sub set_values {
 sub sort {
     my ($self) = @_;
     my $values = $self->{values};
+    $self->_quick_sort($values, 0, $#$values);
+}
 
-    # XXX Implement quicksort
-    @$values = sort { $a <=> $b } @$values;
+sub _quick_sort {
+    my ($self, $values, $from, $to) = @_;
+
+    my ($i, $j) = ($from, $to);
+    my $pivot = $$values[($from + $to) / 2];
+
+    while ($i <= $j) {
+        $i++ while $$values[$i] < $pivot;
+        $j-- while $$values[$j] > $pivot;
+        last if $i > $j;
+        
+        ($$values[$i], $$values[$j]) = ($$values[$j], $$values[$i]);
+        $i++;
+        $j--;
+    }
+
+    return if $from >= $to;
+    $self->_quick_sort($values, $from, $j);
+    $self->_quick_sort($values, $i, $to);
 }
 
 1;
