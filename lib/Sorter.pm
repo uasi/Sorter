@@ -5,8 +5,9 @@ use warnings;
 use Carp;
 
 my %sort_strategies = (
-    quick_sort => \&_quick_sort,
-    merge_sort => \&_merge_sort
+    builtin    => \&_builtin_sort,
+    merge_sort => \&_merge_sort,
+    quick_sort => \&_quick_sort
 );
 
 my $default_strategy = 'quick_sort';
@@ -50,6 +51,11 @@ sub register_sort_strategy {
         croak "Strategy named '$name' already registered";
     }
     $sort_strategies{$name} = $func;
+}
+
+sub _builtin_sort {
+    my ($values) = @_;
+    @$values = sort { $a <=> $b }, @$values;
 }
 
 sub _merge_sort {
