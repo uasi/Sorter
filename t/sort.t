@@ -24,7 +24,13 @@ sub values : Tests {
 }
 
 sub sort : Tests {
-    my $sorter = Sorter->new;
+    do_sort('builtin');
+    do_sort('quick_sort');
+}
+
+sub do_sort {
+    my ($strategy) = @_;
+    my $sorter = Sorter->new($strategy);
     $sorter->sort;
     is_deeply [$sorter->get_values], [];
 
