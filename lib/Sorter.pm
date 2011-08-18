@@ -6,7 +6,6 @@ use Carp;
 
 my %sort_strategies = (
     builtin    => \&_builtin_sort,
-    merge_sort => \&_merge_sort,
     quick_sort => \&_quick_sort
 );
 
@@ -55,12 +54,7 @@ sub register_sort_strategy {
 
 sub _builtin_sort {
     my ($values) = @_;
-    @$values = sort { $a <=> $b }, @$values;
-}
-
-sub _merge_sort {
-    my ($values) = @_;
-    croak 'NYI';
+    @$values = sort { $a <=> $b } @$values;
 }
 
 sub _quick_sort {
