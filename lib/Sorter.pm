@@ -44,7 +44,7 @@ sub sort_strategies {
     %sort_strategies;
 }
 
-sub register_sort_strategies {
+sub register_sort_strategy {
     my (undef, $name, $func) = @_;
     if (exists $sort_strategies{$name}) {
         croak "Strategy named '$name' already registered";
